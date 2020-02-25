@@ -39,7 +39,7 @@ After which, the neighbourhood relaxed again (cf. `mutant_score` below).
 For the interface, the &beta; chain is yanked away and the model is repacked ("apo" structure in the code) and scored.
 The interface score is the difference between the holo and the apo structures.
 
-## Results
+### Table legend
 
 All numeric values are in Rosetta energy units (approximately kcal/mol).
 See [https://michelanglo.sgc.ox.ac.uk/docs/venus](https://michelanglo.sgc.ox.ac.uk/docs/venus) for a description of these.
@@ -58,3 +58,8 @@ See [https://michelanglo.sgc.ox.ac.uk/docs/venus](https://michelanglo.sgc.ox.ac.
 | interface_Δscore	| difference of the above minus the wt reference* | REU. positive = destabiling |
 
 &lowast;) The `interface_Δscore` ought to be subtrated by the ddG of the mutant on an isolated chain. Which was done at the analysis step.
+
+## Mutational landscape
+
+Rosetta pmut_scan was performed on three of the models in order to get a mutational landscape. This repacks sidechains but does not alter backbones.
+Consequently, some mutations that are deleterious are neutral when the backbone is allowed to move.
