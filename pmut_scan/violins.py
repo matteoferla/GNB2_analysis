@@ -25,7 +25,6 @@ import re
 import plotly.graph_objects as go
 import pandas as pd
 
-
 def read_data(grouping: str) -> pd.DataFrame:
     data = []
     with open('/home/matteo/Desktop/GNB2_part2/models_try-1/' + grouping + '.txt') as fh:  # unpaired
@@ -49,6 +48,7 @@ def read_data(grouping: str) -> pd.DataFrame:
     df = pd.DataFrame(data)
     return df.assign(mutation=df.mutation.apply(lambda v: v[2:]))
 
+#######################################################################################################################
 
 def reg_violins():
     for grouping, title in (('unpaired', 'ΔΔG landscape of Gβ2 (GNB2) bound to Gγ1 (GNG1) subunit only'),
@@ -65,11 +65,16 @@ def reg_violins():
                                     box_visible=True,
                                     meanline_visible=True))
 
+        fig.add_trace(go.Violin(y=df.ddG_limited,
+                                name='sequence-space',
+                                box_visible=True,
+                                meanline_visible=True))
+
         fig.update_layout(title_text=title, yaxis={'range': [-10, 51]})
         fig.write_image('/home/matteo/Desktop/GNB2_part2/violin_' + grouping + '.png', scale=3)
         fig.show()
 
-##############################################################################
+#######################################################################################################################
 
 def get_get_difference():
     ref = read_data('unpaired')
@@ -101,13 +106,16 @@ def diff_violins():
                                     name=groupname,
                                     box_visible=True,
                                     meanline_visible=True))
+        fig.add_trace(go.Violin(y=df.dddG_limited,
+                                name='sequence-space',
+                                box_visible=True,
+                                meanline_visible=True))
 
         fig.update_layout(title_text=title, yaxis={'range': [-10, 51]})
         fig.write_image('/home/matteo/Desktop/GNB2_part2/violin_diff_' + grouping + '.png', scale=3)
         fig.show()
 
+#######################################################################################################################
 
-##############################################################################
-
-diff_violins()
 reg_violins()
+diff_violins()

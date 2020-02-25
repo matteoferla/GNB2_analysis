@@ -63,3 +63,7 @@ See [https://michelanglo.sgc.ox.ac.uk/docs/venus](https://michelanglo.sgc.ox.ac.
 
 Rosetta pmut_scan was performed on three of the models in order to get a mutational landscape. This repacks sidechains but does not alter backbones.
 Consequently, some mutations that are deleterious are neutral when the backbone is allowed to move.
+
+The images of the landscapes can be found in [pmut_scan folder)[pmut_scan].
+
+Additionally two sets of violin plots are present. One is the distribution of scores, while the other is the scores subtracted by the unbound model, making it a crude interface score.
