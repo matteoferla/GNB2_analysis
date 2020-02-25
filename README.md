@@ -45,7 +45,7 @@ All numeric values are in Rosetta energy units (approximately kcal/mol).
 See [https://michelanglo.sgc.ox.ac.uk/docs/venus](https://michelanglo.sgc.ox.ac.uk/docs/venus) for a description of these.
 
 | Column name | Meaning | Unit |
-| ---- | ---- | 
+| ---- | ---- | ---- | 
 | model | Template used | - |
 | groupname	| gnomAD or pathogenic | - |
 | mutation	| Mutation on β-subunit (GNB2) | - |
