@@ -1,3 +1,25 @@
+########################################################################################################################
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+if sys.version_info[0] < 3:
+    raise EnvironmentError("Hey, caveman, use Python 3.")
+
+__doc__ = \
+    """
+    PDB minimization for different GNB2 models.
+    
+    """
+__author__ = "Matteo Ferla. [Github](https://github.com/matteoferla)"
+__email__ = "matteo.ferla@gmail.com"
+__date__ = "2019 A.D."
+__license__ = "MIT"
+__version__ = "1"
+__citation__ = "TBA"
+
+########################################################################################################################
+
+
 import pyrosetta
 pyrosetta.init()
 
@@ -7,14 +29,14 @@ def relax(pose, cycles:int=2):
     relax.apply(pose)
     print('Done')
 
-################### alpha beta gamma
+################### alpha beta gamma ######################################
 
 native_alpha = pyrosetta.rosetta.core.pose.Pose()
 pyrosetta.rosetta.core.import_pose.pose_from_file(native_alpha, 'GNB2_alpha.pdb')
 relax(native_alpha, 15)#equivalent to -relax:thorough
 native_alpha.dump_pdb('GNB2_alpha.r.pdb')
 
-################### GRK2
+################### GRK2 ######################################
 
 native_alt = pyrosetta.rosetta.core.pose.Pose()
 pyrosetta.rosetta.core.import_pose.pose_from_file(native_alt, 'GNB2_GRK.pdb')
@@ -22,7 +44,7 @@ relax(native_alt, 15)
 native_alt.dump_pdb('GNB2_alt.r.pdb')
 
 
-################### WITHOUT alpha
+################### WITHOUT alpha ######################################
 import pymol2
 
 with pymol2.PyMOL() as pymol:
@@ -35,7 +57,7 @@ pyrosetta.rosetta.core.import_pose.pose_from_file(native_alone, 'GNB2_alone.pdb'
 relax(native_alone, 15)
 native_alone.dump_pdb('GNB2_alone.r.pdb')
 
-################### phosphorylated
+################### phosphorylated ######################################
 
 from Bio.SeqUtils import seq3
 from michelanglo_protein import ProteinAnalyser, global_settings
