@@ -67,3 +67,10 @@ Consequently, some mutations that are deleterious are neutral when the backbone 
 The images of the landscapes can be found in [pmut_scan folder)[pmut_scan].
 
 Additionally two sets of violin plots are present. One is the distribution of scores, while the other is the scores subtracted by the unbound model, making it a crude interface score.
+
+
+Briefly, the violin plots show that most of the gnonAD mutation are both neutral and have no affect on the intereface.
+While the pathogenic variants have a strong effect on the interface.
+This is in contrast to the set of all possible simple amino acid mutations, which are more frequently deleterious, but do not affect the interface.
+![pmut_scan](pmut_scan/violin_unpaired.png)
+![pmut_scan](pmut_scan/violin_diff_wAlpha.png)
