@@ -71,7 +71,7 @@ def reg_violins():
                                 meanline_visible=True))
 
         fig.update_layout(title_text=title, yaxis={'range': [-10, 51]})
-        fig.write_image('/home/matteo/Desktop/GNB2_part2/violin_' + grouping + '.png', scale=3)
+        fig.write_image('violin_' + grouping + '.png', scale=3)
         fig.show()
 
 #######################################################################################################################
@@ -112,7 +112,7 @@ def diff_violins():
                                 meanline_visible=True))
 
         fig.update_layout(title_text=title, yaxis={'range': [-10, 51]})
-        fig.write_image('/home/matteo/Desktop/GNB2_part2/violin_diff_' + grouping + '.png', scale=3)
+        fig.write_image('violin_diff_' + grouping + '.png', scale=3)
         fig.show()
 
 #######################################################################################################################
