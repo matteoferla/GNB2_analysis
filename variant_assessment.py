@@ -42,7 +42,7 @@ def relax(pose, cycles: int = 2) -> None:
 
 def shift_residue(pose: pyrosetta.rosetta.core.pose.Pose, r: int) -> None:
     """
-    copied from https://graylab.jhu.edu/pyrosetta/downloads/scripts/demo/D090_Ala_scan.py
+    inspired from https://graylab.jhu.edu/pyrosetta/downloads/scripts/demo/D090_Ala_scan.py
 
     :param pose: changed in place
     :param r: pose numbering
@@ -59,7 +59,7 @@ def shift_residue(pose: pyrosetta.rosetta.core.pose.Pose, r: int) -> None:
 
 def shift_chain(pose: pyrosetta.rosetta.core.pose.Pose, chain: str) -> None:
     """
-        copied from https://graylab.jhu.edu/pyrosetta/downloads/scripts/demo/D090_Ala_scan.py
+        inspired from https://graylab.jhu.edu/pyrosetta/downloads/scripts/demo/D090_Ala_scan.py
 
         :param pose: changed in place
         :param chain: chain
