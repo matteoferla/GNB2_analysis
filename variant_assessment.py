@@ -23,6 +23,7 @@ __citation__ = "TBA"
 import re, csv, os
 from typing import Dict
 import pyrosetta
+
 pyrosetta.init()
 
 
@@ -102,15 +103,19 @@ def interface_score(pose: pyrosetta.rosetta.core.pose.Pose, chain: str) -> Dict:
             'holo_pose': pose,
             'apo_pose': shift_pose}
 
+
 ########################################################################################################################
 
 from michelanglo_protein import ProteinCore, global_settings
-global_settings.startup(data_folder='/home/matteo/Coding/Michelanglo/protein-data')
+
+global_settings.startup(data_folder='/Users/matteo/Coding/michelanglo/protein-data')
 
 from michelanglo_protein.analyse import Mutator
 
-def get_data(uniprot:str) -> ProteinCore:
-    p = ProteinCore(taxid=9606, uniprot=uniprot).load()
+
+def get_data(uniprot: str) -> ProteinCore:
+    return ProteinCore(taxid=9606, uniprot=uniprot).load()
+
 
 def assess_variant(mutation: str, groupname: str, model: str, pdbblock: str) -> Dict:
     from_res = mutation[0]
@@ -140,13 +145,16 @@ def assess_variant(mutation: str, groupname: str, model: str, pdbblock: str) -> 
         'rmsd': analysis['rmsd']
     }
 
+
 def main():
-    p = get_data('P62879')
-    gnomad = [re.match('^(\w\d+\w)', variant.description).group(1) for variant in p.gnomAD]
+    #this code requires Michelanglo data, solely to get the gnomads...
+    #p = get_data('P62879')
+    #gnomad = [re.match('^(\w\d+\w)', variant.description).group(1) for variant in p.gnomAD]
+    gnomad = ['A21S', 'R49K', 'A73T', 'R129H', 'V133I', 'D195N', 'R197H', 'T198M', 'I208V', 'V213M', 'M263V', 'R283W', 'G302S', 'D303N', 'A309T', 'D322H', 'D323N', 'S2R', 'E12D', 'R22Q', 'T31I', 'G36R', 'G36E', 'D38E', 'I43M', 'R49K', 'D66E', 'V71L', 'L79V', 'S84T', 'N88T', 'A104T', 'Y105F', 'C114S', 'I120V', 'I123V', 'I123T', 'R129H', 'R137G', 'T143A', 'I157V', 'T159S', 'T164A', 'T173I', 'G174S', 'V178L', 'S191A', 'A193S', 'D195N', 'R197C', 'R197H', 'T198K', 'S207C', 'I208V', 'K209R', 'D212H', 'V213M', 'M217V', 'R219Q', 'I223V', 'F241V', 'G244V', 'A248V', 'T249M', 'F253L', 'D258Y', 'L262V', 'M263V', 'M263T', 'H266N', 'H266R', 'N268D', 'N268I', 'G272S', 'S275A', 'R280C', 'R280H', 'A287T', 'I296T', 'A299T', 'M300V', 'G302S', 'D303N', 'R304H', 'A305T', 'A309G', 'D312V', 'V315M', 'L318I', 'G319X', 'D322N', 'D322G', 'D323N', 'M325V', 'V327M', 'F335L', 'I338V']
     pathogenic = ('A73T', 'G77R', 'G77E', 'K89T', 'K89E', 'E180K', 'S147L', 'I171T')
     table = []
 
-    with open('GNB2_analysis.csv','w') as w:
+    with open('data/GNB2_analysis.csv', 'w') as w:
         out = csv.DictWriter(w, fieldnames=['model',
                                             'groupname',
                                             'mutation',
@@ -156,14 +164,14 @@ def main():
                                             'mutant_score',
                                             'interface_score',
                                             'interface_Δscore',
-                                           'rmsd'])
+                                            'rmsd'])
         out.writeheader()
         for filename in os.listdir('templates'):
             if '.pdb' not in filename:
                 continue
             print(filename)
-            model = re.search(r"GNB2_(.*)\.pdb",filename).group(1)
-            pdbblock = open(os.path.join('GNB2',filename)).read()
+            model = re.search(r"GNB2_(.*)\.pdb", filename).group(1)
+            pdbblock = open(os.path.join('templates', filename)).read()
             for group, groupname in [(pathogenic, 'pathogenic'), (gnomad, 'gnomad')]:
                 for mutation in group:
                     if 'X' in mutation:
@@ -175,3 +183,7 @@ def main():
                     entry = assess_variant(mutation, groupname, model, pdbblock)
                     table.append(entry)
                     out.writerow(entry)
+
+
+if __name__ == '__main__':
+    main()
