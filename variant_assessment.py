@@ -108,7 +108,7 @@ def interface_score(pose: pyrosetta.rosetta.core.pose.Pose, chain: str) -> Dict:
 
 from michelanglo_protein import ProteinCore, global_settings
 
-global_settings.startup(data_folder='/Users/matteo/Coding/michelanglo/protein-data')
+global_settings.startup(data_folder=os.environ['MICHELANGLODATA'])
 
 from michelanglo_protein.analyse import Mutator
 
