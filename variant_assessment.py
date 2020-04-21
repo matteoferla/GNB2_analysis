@@ -73,11 +73,25 @@ def shift_chain(pose: pyrosetta.rosetta.core.pose.Pose, chain: str) -> None:
             shift_residue(pose, r)
 
 
-def repack(pose: pyrosetta.rosetta.core.pose.Pose) -> None:
+def repack_interface(pose: pyrosetta.rosetta.core.pose.Pose, chain) -> None:
     scorefxn = pyrosetta.get_fa_scorefxn()
-    packer_task = pyrosetta.rosetta.core.pack.task.TaskFactory.create_packer_task(pose)
-    packer_task.restrict_to_repacking()
-    pyrosetta.rosetta.core.pack.pack_rotamers(pose, scorefxn, packer_task)
+    # packer_task = pyrosetta.rosetta.core.pack.task.TaskFactory.create_packer_task(pose)
+    # packer_task.restrict_to_repacking()
+    # pyrosetta.rosetta.core.pack.pack_rotamers(pose, scorefxn, packer_task)
+    operation = pyrosetta.rosetta.core.pack.task.operation
+    allow = operation.RestrictToRepackingRLT()
+    chainB_sele = pyrosetta.rosetta.core.select.residue_selector.ChainSelector('B')
+    not_chainB_sele = pyrosetta.rosetta.core.select.residue_selector.NotResidueSelector(chainB_sele)
+    sele = pyrosetta.rosetta.core.select.residue_selector.InterGroupInterfaceByVectorSelector(chainB_sele, not_chainB_sele)
+    sele.nearby_atom_cut(6)
+    sele.cb_dist_cut(8)
+    restrict_to_focus = operation.OperateOnResidueSubset(allow, sele, True)
+    tf = pyrosetta.rosetta.core.pack.task.TaskFactory()
+    tf.push_back(operation.PreventRepacking())
+    tf.push_back(restrict_to_focus)
+    packer = pyrosetta.rosetta.protocols.minimization_packing.PackRotamersMover(scorefxn)
+    packer.task_factory(tf)
+    packer.apply(pose)
     print('done')
 
 
@@ -87,7 +101,7 @@ def interface_score(pose: pyrosetta.rosetta.core.pose.Pose, chain: str) -> Dict:
     shift_pose.assign(pose)
     # Shift
     shift_chain(shift_pose, chain)
-    repack(shift_pose)
+    repack_interface(shift_pose, chain)
     # Score
     scorefxn = pyrosetta.get_fa_scorefxn()
     holoscore = scorefxn(pose)
@@ -124,8 +138,8 @@ def assess_variant(mutation: str, groupname: str, model: str, pdbblock: str) -> 
     m = Mutator(pdbblock=pdbblock,
                 target_resi=resi,
                 target_chain='B',
-                cycles=3,
-                radius=4)
+                cycles=15,
+                radius=5)
     analysis = m.analyse_mutation(to_res)
     m.pose.dump_pdb(f'mutants/{model}.{mutation}.pdb')
     shifted = interface_score(m.pose, 'B')
