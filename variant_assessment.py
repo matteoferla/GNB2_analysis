@@ -135,6 +135,7 @@ def assess_variant(mutation: str, groupname: str, model: str, pdbblock: str) -> 
     from_res = mutation[0]
     resi = int(re.search('^\w(\d+)\w', mutation).group(1))
     to_res = mutation[-1]
+    # lazy reuse of code.
     m = Mutator(pdbblock=pdbblock,
                 target_resi=resi,
                 target_chain='B',
