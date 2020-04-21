@@ -142,11 +142,11 @@ def assess_variant(mutation: str, groupname: str, model: str, pdbblock: str) -> 
                 cycles=15,
                 radius=5)
     analysis = m.analyse_mutation(to_res)
-    m.pose.dump_pdb(f'mutants/{model}.{mutation}.pdb')
+    m.pose.dump_pdb(f'variants/{model}.{mutation}.pdb')
     shifted = interface_score(m.pose, 'B')
     analysis = {**analysis, **shifted}
     ref = interface_score(m.native, 'B')
-    shifted['apo_pose'].dump_pdb(f'mutants/{model}.{mutation}.split.pdb')
+    shifted['apo_pose'].dump_pdb(f'variants/{model}.{mutation}.split.pdb')
     return {
         'model': model,
         'groupname': groupname,
