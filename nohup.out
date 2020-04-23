@@ -1,0 +1,40 @@
+core.init: Checking for fconfig files in pwd and ./rosetta/flags 
+core.init: Rosetta version: PyRosetta4.Release.python37.linux r246 2020.06+release.feb6ebf feb6ebf6c93447cb081e3b1c7ab91a66ec91a565 http://www.pyrosetta.org 2020-02-08T16:37:31
+core.init: command: PyRosetta -ex1 -ex2aro -database /users/brc/matteo/.conda/envs/biochem/lib/python3.7/site-packages/pyrosetta-2020.6+release.feb6ebf-py3.7-linux-x86_64.egg/pyrosetta/database
+basic.random.init_random_generator: 'RNG device' seed mode, using '/dev/urandom', seed=1365922726 seed_offset=0 real_seed=1365922726
+basic.random.init_random_generator: RandomGenerator:init: Normal mode, seed=1365922726 RG_type=mt19937
+ PyMOL(TM) 2.3.4 - Incentive Product
+ Copyright (C) Schrodinger, LLC
+ 
+ This Executable Build integrates and extends Open-Source PyMOL.
+[ WARNING ] Resetting the global tracer options, which have already been set.
+[ WARNING ] This will not affect Tracers which are already initialized.
+PyRosetta-4 2020 [Rosetta PyRosetta4.Release.python37.linux 2020.06+release.feb6ebf6c93447cb081e3b1c7ab91a66ec91a565 2020-02-08T16:37:31] retrieved from: http://www.pyrosetta.org
+(C) Copyright Rosetta Commons Member Institutions. Created in JHU by Sergey Lyskov and PyRosetta Team.
+Folder path set to /users/brc/matteo/michelanglo/protein-data
+GNB2_wAlpha.pdb
+done
+done
+GNB2_wKCTD12.pdb
+done
+done
+GNB2_wPREX1.pdb
+done
+done
+GNB2_unpaired.pdb
+done
+done
+GNB2_wGRK2.pdb
+done
+done
+GNB2_wGTPAlpha.pdb
+done
+done
+GNB2_phospho.pdb
+done
+done
+core.init: Checking for fconfig files in pwd and ./rosetta/flags 
+core.init: Rosetta version: PyRosetta4.Release.python37.linux r246 2020.06+release.feb6ebf feb6ebf6c93447cb081e3b1c7ab91a66ec91a565 http://www.pyrosetta.org 2020-02-08T16:37:31
+core.init: command: PyRosetta -mute core basic protocols -ignore_unrecognized_res true -database /users/brc/matteo/.conda/envs/biochem/lib/python3.7/site-packages/pyrosetta-2020.6+release.feb6ebf-py3.7-linux-x86_64.egg/pyrosetta/database
+basic.random.init_random_generator: 'RNG device' seed mode, using '/dev/urandom', seed=-1022993969 seed_offset=0 real_seed=-1022993969
+basic.random.init_random_generator: RandomGenerator:init: Normal mode, seed=-1022993969 RG_type=mt19937
