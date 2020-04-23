@@ -42,9 +42,9 @@ This template was not used in analyses because I thought of it afterwards.
 A first course scan was done for all possible single amino acid changes in GNB2.
 
 Rosetta pmut_scan was performed on three of the models in order to get a mutational landscape. This repacks sidechains but does not alter backbones.
-Consequently, some mutations that are deleterious are neutral when the backbone is allowed to move.
+Consequently, some mutations that are deleterious are neutral when the backbone is allowed to move. Proline mutations being a classic example.
 
-The full images of the landscapes can be found in [pmut_scan folder)[pmut_scan].
+The full images of the landscapes can be found in [pmut_scan folder](pmut_scan).
 
 Additionally two sets of violin plots are present. One is the distribution of scores, while the other is the scores subtracted by the unbound model, making it a crude interface score.
 
@@ -59,18 +59,10 @@ This is in contrast to the set of all possible simple amino acid mutations, whic
 
 A second more thorough analysis was done for the pathogenic variants and the gnomAD variants.
 
-The pathogen variants are scored using code for [https://michelanglo.sgc.ox.ac.uk/VENUS](https://michelanglo.sgc.ox.ac.uk/VENUS).
-Namely a 4 &Aring; region around the residue of interest is energy minimised by 2x FastRelax and scored. cf. `native_score` below.
-This is because VENUS operates on un-minimised PDBs.
-Then the residue is mutated and scored (cf. `mutant_score_fixed` below).
-After which, the neighbourhood relaxed again (cf. `mutant_score` below).
+The pathogen variants were originally scored using code for [https://michelanglo.sgc.ox.ac.uk/VENUS](https://michelanglo.sgc.ox.ac.uk/VENUS).
+This is the `variant_assessment.old.py` file and includes an attempt at interface scoring which I was not happy with.
+However, this has been changed and used code from [https://github.com/matteoferla/DogCatcher](https://github.com/matteoferla/DogCatcher).
 
-
-For the interface, the &beta; chain is yanked away and the model is repacked ("apo" structure in the code) and scored.
-The interface score is the difference between the holo and the apo structures.
-
-However, the 2x local FastRelax bound to 4 &Aring; is likely not sufficient to properly account for very large scale backbone changes
-as some variants, such as the G77R/E seem to induce.
 
 ![scores](variant_plots/heatmap_pathogenic.png)
 

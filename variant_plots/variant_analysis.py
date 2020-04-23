@@ -8,7 +8,7 @@ if sys.version_info[0] < 3:
 
 __doc__ = \
     """
-    Variant plots
+    Variant plots... these are meant to be run in a Jupyter notebook and are here just because.
 
     """
 __author__ = "Matteo Ferla. [Github](https://github.com/matteoferla)"
@@ -24,8 +24,8 @@ import pandas as pd
 import plotly.graph_objects as go
 
 
-def model_heatmap():
-    df = pd.read_csv('GNB2_analysis.csv')
+def model_heatmap(datafile:str):
+    df = pd.read_csv(datafile)
     for n in ('pathogenic', 'gnomad'):
         dfixed = df.loc[df.groupname == n]
         ddG = dfixed.pivot_table(index=['model'], columns=['mutation'], values='ddG').round(1)
@@ -41,8 +41,8 @@ def model_heatmap():
         fig.write_image('heatmap_' + n + '.png', scale=3)
         fig.show()
 
-def diff_heatmap():
-    df = pd.read_csv('GNB2_analysis.csv')
+def diff_heatmap(datafile:str):
+    df = pd.read_csv(datafile)
     for n in ('pathogenic', 'gnomad'):
         dfixed = df.loc[df.groupname == n]
         ddG = dfixed.pivot_table(index=['mutation'], columns=['model'], values='ddG').round(1)
@@ -68,6 +68,16 @@ def diff_heatmap():
         fig1.show()
 
 def get_group(mutant):
+    gnomad = ['A21S', 'R49K', 'A73T', 'R129H', 'V133I', 'D195N', 'R197H', 'T198M', 'I208V', 'V213M', 'M263V', 'R283W',
+              'G302S', 'D303N', 'A309T', 'D322H', 'D323N', 'S2R', 'E12D', 'R22Q', 'T31I', 'G36R', 'G36E', 'D38E',
+              'I43M', 'R49K', 'D66E', 'V71L', 'L79V', 'S84T', 'N88T', 'A104T', 'Y105F', 'C114S', 'I120V', 'I123V',
+              'I123T', 'R129H', 'R137G', 'T143A', 'I157V', 'T159S', 'T164A', 'T173I', 'G174S', 'V178L', 'S191A',
+              'A193S', 'D195N', 'R197C', 'R197H', 'T198K', 'S207C', 'I208V', 'K209R', 'D212H', 'V213M', 'M217V',
+              'R219Q', 'I223V', 'F241V', 'G244V', 'A248V', 'T249M', 'F253L', 'D258Y', 'L262V', 'M263V', 'M263T',
+              'H266N', 'H266R', 'N268D', 'N268I', 'G272S', 'S275A', 'R280C', 'R280H', 'A287T', 'I296T', 'A299T',
+              'M300V', 'G302S', 'D303N', 'R304H', 'A305T', 'A309G', 'D312V', 'V315M', 'L318I', 'G319X', 'D322N',
+              'D322G', 'D323N', 'M325V', 'V327M', 'F335L', 'I338V']
+    pathogenic = ('R52L', 'A73T', 'G77R', 'G77E', 'K89T', 'K89E', 'E180K', 'S147L', 'I171T')
     if mutant in pathogenic:
         return 'pathogenic'
     elif mutant in gnomad:
@@ -75,8 +85,8 @@ def get_group(mutant):
     else:
         raise ValueError
 
-def interface_heatmap():
-    df = pd.read_csv('GNB2_analysis.csv')
+def interface_heatmap(datafile:str):
+    df = pd.read_csv(datafile)
     ref = {row.mutation: row.interface_Δscore for i, row in df.iterrows() if row.model == 'unpaired'}
     # display(df.loc[df.mutation == 'S147L'])
     dfixed = df.assign(score=df.apply(lambda row: row.interface_Δscore - ref[row.mutation], 1)) \
