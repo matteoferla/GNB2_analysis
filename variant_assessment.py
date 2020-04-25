@@ -129,7 +129,7 @@ class Variant:
 
 
 if __name__ == '__main__':
-    with open('data/GNB2_analysis2.csv', 'w') as w:
+    with open('data/GNB2_analysis2x.csv', 'w') as w:
         out = csv.DictWriter(w, fieldnames=['model',
                                             'mutation',
                                             'ddG',
@@ -139,6 +139,8 @@ if __name__ == '__main__':
         scorefxn = pyrosetta.get_fa_scorefxn()
         for filename in os.listdir('templates'):
             if '.pdb' not in filename:
+                continue
+            if filename != 'GNB2_wAlpha.pdb':
                 continue
             print(filename)
             modelname = re.search(r"GNB2_(.*)\.pdb", filename).group(1)
