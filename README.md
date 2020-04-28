@@ -2,6 +2,7 @@
 In silico analysis of the variants for the GNB2 paper.
 
 For Michelanglo interactive page see [michelanglo.sgc.ox.ac.uk](https://michelanglo.sgc.ox.ac.uk/data/2eaec78d-d920-4a92-9780-251f14996b68)
+
 For description of the protein see [description](description.md).
 
 ## Templates
